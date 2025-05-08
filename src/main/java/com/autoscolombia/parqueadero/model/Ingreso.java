@@ -45,12 +45,12 @@ public class Ingreso {
         this.id = id;
     }
 
-    public Celda getCelda() {
-        return celda;
+    public String getPlaca() {
+        return placa;
     }
 
-    public void setCelda(Celda celda) {
-        this.celda = celda;
+    public void setPlaca(String placa) {
+        this.placa = placa;
     }
 
     public LocalDateTime getHoraIngreso() {
@@ -61,11 +61,19 @@ public class Ingreso {
         this.horaIngreso = horaIngreso;
     }
 
-    public String getPlaca() {
-        return placa;
+    public Celda getCelda() {
+        return celda;
     }
 
-    public void setPlaca(String placa) {
-        this.placa = placa;
+    public void setCelda(Celda celda) {
+        this.celda = celda;
+    }
+
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
     }
 }

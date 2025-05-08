@@ -14,16 +14,16 @@ public class VehiculoService {
     @Autowired
     private VehiculoRepository vehiculoRepository;
 
-    // Obtener todos los vehículos
+
     public List<Vehiculo> obtenerVehiculos() {
         return vehiculoRepository.findAll();
     }
 
-    // Registrar hora de ingreso
+
     public void registrarIngreso(String placa) {
         LocalDateTime horaIngreso = LocalDateTime.now();
 
-        // Verificar si el vehículo ya existe
+
         Vehiculo vehiculo = vehiculoRepository.findByPlaca(placa)
                 .orElse(new Vehiculo());
 

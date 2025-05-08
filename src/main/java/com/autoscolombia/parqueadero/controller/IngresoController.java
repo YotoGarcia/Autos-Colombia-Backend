@@ -18,13 +18,13 @@ public class IngresoController {
     @PostMapping
     public ResponseEntity<Ingreso> registrarIngreso(@RequestParam String placa) {
         try {
-            // Llamamos al servicio y obtenemos el objeto Ingreso
+
             Ingreso ingreso = ingresoService.registrarIngreso(placa);
 
-            // Retornamos el objeto Ingreso con un estado CREATED
+
             return ResponseEntity.status(HttpStatus.CREATED).body(ingreso);
         } catch (RuntimeException e) {
-            // En caso de error, retornamos un mensaje de error con estado BAD_REQUEST
+
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }

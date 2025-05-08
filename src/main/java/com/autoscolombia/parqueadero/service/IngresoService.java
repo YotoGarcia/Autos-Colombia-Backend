@@ -29,7 +29,7 @@ public class IngresoService {
     private PagoRepository pagoRepository;
 
     public Ingreso registrarIngreso(String placa) {
-        // Verifica si el vehículo ya existe o crea uno nuevo
+
         Vehiculo vehiculo = vehiculoRepository.findByPlaca(placa)
                 .orElseGet(() -> {
                     Vehiculo nuevo = new Vehiculo();
@@ -38,27 +38,27 @@ public class IngresoService {
                     return vehiculoRepository.save(nuevo);
                 });
 
-        // Si no tiene hora de ingreso, la asigna
+
         if (vehiculo.getHoraIngreso() == null) {
             vehiculo.setHoraIngreso(LocalDateTime.now());
             vehiculoRepository.save(vehiculo);
         }
 
-        // Obtiene una celda disponible
+
         Celda celdaDisponible = celdaRepository.findFirstByOcupadaFalse()
                 .orElseThrow(() -> new RuntimeException("No hay celdas disponibles"));
 
-        // Marca la celda como ocupada
+
         celdaDisponible.setOcupada(true);
         celdaRepository.save(celdaDisponible);
 
-        // Crea un nuevo ingreso
+
         Ingreso ingreso = new Ingreso();
         ingreso.setPlaca(placa);
         ingreso.setCelda(celdaDisponible);
         ingreso.setHoraIngreso(LocalDateTime.now());
 
-        // Guarda el ingreso y lo retorna
+
         return ingresoRepository.save(ingreso);
     }
 }
