@@ -2,7 +2,6 @@ package com.autoscolombia.parqueadero.service;
 
 import com.autoscolombia.parqueadero.model.Celda;
 import com.autoscolombia.parqueadero.model.Ingreso;
-import com.autoscolombia.parqueadero.model.Pago;
 import com.autoscolombia.parqueadero.model.Vehiculo;
 import com.autoscolombia.parqueadero.repository.CeldaRepository;
 import com.autoscolombia.parqueadero.repository.IngresoRepository;

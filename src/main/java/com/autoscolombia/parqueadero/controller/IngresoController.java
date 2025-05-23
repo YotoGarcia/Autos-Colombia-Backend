@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/ingresos")
-@CrossOrigin(origins = "*")
 public class IngresoController {
 
     @Autowired

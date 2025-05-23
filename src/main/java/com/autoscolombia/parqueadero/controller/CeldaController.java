@@ -10,7 +10,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/celdas")
-@CrossOrigin(origins = "*")
 public class CeldaController {
 
     @Autowired

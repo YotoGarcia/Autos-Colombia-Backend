@@ -10,7 +10,9 @@ import com.autoscolombia.parqueadero.repository.VehiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Service
@@ -52,5 +54,10 @@ public class PagoService {
         celdaRepository.save(celda);
 
         return valor;
+    }
+    public List<Pago> obtenerPagosPorFecha(LocalDate fecha) {
+        LocalDateTime inicio = fecha.atStartOfDay();
+        LocalDateTime fin = fecha.atTime(23, 59, 59);
+        return pagoRepository.findByHoraSalidaBetween(inicio, fin);
     }
 }
