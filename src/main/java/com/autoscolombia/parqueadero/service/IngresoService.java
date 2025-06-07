@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class IngresoService {
@@ -27,6 +28,10 @@ public class IngresoService {
     @Autowired
     private PagoRepository pagoRepository;
 
+    @Autowired
+    private FacturaService facturaService;
+
+
     public Ingreso registrarIngreso(String placa) {
 
         Vehiculo vehiculo = vehiculoRepository.findByPlaca(placa)
@@ -37,27 +42,35 @@ public class IngresoService {
                     return vehiculoRepository.save(nuevo);
                 });
 
-
         if (vehiculo.getHoraIngreso() == null) {
             vehiculo.setHoraIngreso(LocalDateTime.now());
             vehiculoRepository.save(vehiculo);
         }
 
-
         Celda celdaDisponible = celdaRepository.findFirstByOcupadaFalse()
                 .orElseThrow(() -> new RuntimeException("No hay celdas disponibles"));
 
-
         celdaDisponible.setOcupada(true);
         celdaRepository.save(celdaDisponible);
-
 
         Ingreso ingreso = new Ingreso();
         ingreso.setPlaca(placa);
         ingreso.setCelda(celdaDisponible);
         ingreso.setHoraIngreso(LocalDateTime.now());
+        ingreso.setVehiculo(vehiculo);
+
+        Ingreso ingresoGuardado = ingresoRepository.save(ingreso);
 
 
-        return ingresoRepository.save(ingreso);
+        byte[] facturaPdf = facturaService.generarFacturaIngresoPDF(ingresoGuardado);
+
+
+        return ingresoGuardado;
     }
+
+    public Optional<Ingreso> buscarIngresoPorPlaca(String placa) {
+        return ingresoRepository.findTopByPlacaOrderByHoraIngresoDesc(placa);
+    }
+
+
 }
